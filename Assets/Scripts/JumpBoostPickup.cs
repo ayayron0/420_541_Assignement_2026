@@ -10,7 +10,12 @@ public class JumpBoostPickup : MonoBehaviour
     void OnTriggerEnter(Collider other){
 
         PlayerPowerUps powerUps = other.GetComponent<PlayerPowerUps>();
-        if (powerUps == null) return;
+
+        if (powerUps == null){
+
+            return;
+
+        }
 
         powerUps.ActivateJumpBoost(duration);
         GetComponent<AudioSource>().PlayOneShot(pickupSound);

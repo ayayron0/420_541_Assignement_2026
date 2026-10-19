@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float turnSpeed = 150f;
     private Rigidbody rb;
     private Vector3 moveDirection;
     private bool isRunning;
@@ -16,6 +17,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     private bool isGrounded;
     public bool IsGrounded => isGrounded;
+    public float SpeedMultiplier { get; set; } = 1f;
     [SerializeField] private float maxChargeTime = 3f;
     private float chargeTime;
     private bool isCharging;
@@ -87,6 +89,13 @@ public class CharacterMovement : MonoBehaviour
         cameraRight.Normalize();
 
         moveDirection = (cameraForward * moveZ + cameraRight * moveX).normalized;
+
+        if (moveDirection.magnitude > 0f){
+
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation,turnSpeed * Time.deltaTime);
+        }
     }
 
     void FixedUpdate()
@@ -97,7 +106,7 @@ public class CharacterMovement : MonoBehaviour
             currentSpeed *= 2f;
         }
 
-        Vector3 targetVelocity = moveDirection * currentSpeed;
+        Vector3 targetVelocity = moveDirection * currentSpeed * SpeedMultiplier;
 
         rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
 

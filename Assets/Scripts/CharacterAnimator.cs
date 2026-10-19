@@ -7,6 +7,10 @@ public class CharacterAnimator : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private CharacterMovement movement;
+    [SerializeField] private AudioClip doubleJumpSound;
+    [SerializeField] private GameObject doubleJumpEffect;
+    private AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +18,7 @@ public class CharacterAnimator : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         movement = GetComponent<CharacterMovement>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,6 +39,8 @@ public class CharacterAnimator : MonoBehaviour
             if (Input.GetButtonDown("Jump") && movement.TryDoubleJump()){
 
                 animator.SetTrigger("doDoubleJump");
+                audioSource.PlayOneShot(doubleJumpSound);
+                Instantiate(doubleJumpEffect, transform.position + Vector3.up, Quaternion.identity);
 
             }
         }
