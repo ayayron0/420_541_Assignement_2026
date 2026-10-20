@@ -22,6 +22,6 @@ public class SceneLoader : MonoBehaviour
 
         }
 
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Level1");
     }
 }

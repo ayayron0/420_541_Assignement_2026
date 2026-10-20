@@ -7,6 +7,7 @@ public class DeathPlane : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameManager.Instance.RestoreLevelStartScore();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

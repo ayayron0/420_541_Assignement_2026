@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         Health = startingHealth;
+        GameManager.Instance.SaveLevelStartScore();
     }
 
     // Update is called once per frame
@@ -24,6 +25,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Health: " + Health);
 
         if (Health <= 0){
+
+            GameManager.Instance.RestoreLevelStartScore();
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 

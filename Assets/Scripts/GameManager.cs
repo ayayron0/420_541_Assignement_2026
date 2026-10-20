@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public int Score{ get; private set; }
+    private int levelStartScore;
 
     void Awake(){
 
@@ -28,6 +29,18 @@ public class GameManager : MonoBehaviour
     public void ResetScore(){
 
         Score = 0;
+
+    }
+
+    public void SaveLevelStartScore(){
+
+        levelStartScore = Score;
+
+    }
+
+    public void RestoreLevelStartScore(){
+
+        Score = levelStartScore;
 
     }
 
